@@ -1,0 +1,9 @@
+footer {
+  text-align: center;
+  font-size: 0.75rem;
+  margin-right: 1.5rem;
+
+  @media all and (min-width: 769px) {
+    text-align: right;
+  }
+}
