@@ -5,7 +5,7 @@ import PodcastCard from '../../components/PodcastCard/PodcastCard'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import { getAllPodcasts } from '../../services/PodcastService'
 
-const App = () => {
+const Home = () => {
   const [podcasts, setPodcasts] = useState([])
   const [filteredPodcasts, setFilteredPodcasts] = useState([])
 
@@ -68,4 +68,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Home
