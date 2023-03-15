@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './assets/index.scss'
-import App from './App'
-import Episode from './layout/Episode'
-import Podcast from './layout/Podcast'
+import Home from './layout/Home/Home'
+import Episode from './layout/Episode/Episode'
+import Podcast from './layout/Podcast/Podcast'
 import reportWebVitals from './reportWebVitals'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Home />,
     errorElement: <p>Error</p>,
   },
   {
