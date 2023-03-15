@@ -1,9 +1,9 @@
-import './App.scss'
+import './assets/App.scss'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">Header</header>
+    <div className="app">
+      <header className="app__header">Podcast App</header>
     </div>
   )
 }

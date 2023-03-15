@@ -1,13 +1,33 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
 import './index.scss'
 import App from './App'
+import Episode from './layout/Episode'
+import Podcast from './layout/Podcast'
 import reportWebVitals from './reportWebVitals'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <p>Error</p>,
+  },
+  {
+    path: 'podcast/:podcastId',
+    element: <Podcast />,
+  },
+  {
+    path: 'podcast/:podcastId/chapter/:chapterId',
+    element: <Episode />,
+  },
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 )
 
