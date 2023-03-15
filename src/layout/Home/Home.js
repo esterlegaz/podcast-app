@@ -10,10 +10,29 @@ const App = () => {
   const [filteredPodcasts, setFilteredPodcasts] = useState([])
 
   useEffect(() => {
-    const podcasts = getAllPodcasts()
-    setPodcasts(podcasts.feed.entry)
-    setFilteredPodcasts(podcasts.feed.entry)
+    const infoNeedsToBeFetched = checkDaysDifference()
+    if (infoNeedsToBeFetched) {
+      getAllPodcasts().then((data) => {
+        setPodcasts(data)
+        setFilteredPodcasts(data)
+      })
+    } else {
+      const localPodcastsInfo = JSON.parse(localStorage.getItem('podcasts'))
+      setPodcasts(localPodcastsInfo)
+      setFilteredPodcasts(localPodcastsInfo)
+    }
   }, [])
+
+  const checkDaysDifference = () => {
+    const today = new Date()
+    const lastTimeUpdated = localStorage.getItem('podcasts_lastUpdated')
+
+    const diffTime = Math.abs(new Date(lastTimeUpdated) - today)
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+    const isUpdateNeeded = diffDays > 1 ? true : false
+    return isUpdateNeeded
+  }
 
   const onHandleChange = (event) => {
     const filteredPodcasts = podcasts.filter(
@@ -25,7 +44,6 @@ const App = () => {
           .toLowerCase()
           .includes(event.target.value.toLowerCase())
     )
-    console.log('filteredPodcast', filteredPodcasts)
     setFilteredPodcasts(filteredPodcasts)
   }
 
