@@ -57,6 +57,7 @@ const Home = () => {
         {filteredPodcasts.map((podcast) => (
           <div key={podcast.id.attributes['im:id']}>
             <PodcastCard
+              id={podcast.id.attributes['im:id']}
               title={podcast['im:name'].label}
               author={podcast['im:artist'].label}
               image={podcast['im:image'][0].label}
