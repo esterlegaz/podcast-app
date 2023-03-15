@@ -1,5 +1,7 @@
+import Layout from './../components/Layout'
+
 const Episode = () => {
-  return <div>Episode</div>
+  return <Layout>Episode</Layout>
 }
 
 export default Episode

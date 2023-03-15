@@ -1,9 +1,10 @@
 import './assets/App.scss'
+import Layout from './components/Layout'
 
 const App = () => {
   return (
     <div className="app">
-      <header className="app__header">Podcast App</header>
+      <Layout>Home</Layout>
     </div>
   )
 }
