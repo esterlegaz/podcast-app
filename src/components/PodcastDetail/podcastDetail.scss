@@ -3,6 +3,7 @@
 p {
   margin: 0;
 }
+
 .detail {
   &__container {
     display: flex;
@@ -73,7 +74,7 @@ p {
 
       & > p,
       > a {
-        color: $primary-color;
+        color: $text-primary-color;
         border-bottom: 1px solid $text-primary-color;
         padding: 0.5rem 0;
         text-decoration: none;
