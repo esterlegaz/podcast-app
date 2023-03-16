@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import './podcastDetail.scss'
 
 const PodcastDetail = ({ podcastId, title, author, image, episodes }) => {
-  console.log(episodes)
-  return (
+  return episodes ? (
     <div className="detail__container">
       <div className="detail__podcast">
         <Link to={`/podcast/${podcastId}`}>
@@ -58,6 +57,11 @@ const PodcastDetail = ({ podcastId, title, author, image, episodes }) => {
         </div>
       </div>
     </div>
+  ) : (
+    <p>
+      There's been an error loading this podcast. Please, check console for more
+      information.
+    </p>
   )
 }
 
