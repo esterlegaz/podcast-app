@@ -3,16 +3,24 @@ import { Link } from 'react-router-dom'
 
 import './podcastDetail.scss'
 
-const PodcastDetail = ({ title, author, image, episodes }) => {
+const PodcastDetail = ({ podcastId, title, author, image, episodes }) => {
   console.log(episodes)
   return (
     <div className="detail__container">
       <div className="detail__podcast">
-        <img src={image} alt={`${title} logo`} />
-        <p>Title: {title}</p>
-        <p>By: {author}</p>
+        <Link to={`/podcast/${podcastId}`}>
+          <div className="detail__image">
+            <img src={image} alt={`${title} logo`} />
+          </div>
 
-        <p>Description: {episodes?.description}</p>
+          <p className="detail__podcast--title">{title}</p>
+        </Link>
+        <p className="detail__podcast--description">
+          by: <i> {author}</i>
+        </p>
+
+        <p className="detail__podcast--title">Description:</p>
+        <p className="detail__podcast--description"> {episodes?.description}</p>
       </div>
       <div className="detail__episodes">
         <p className="detail__episodes--number">
@@ -25,11 +33,16 @@ const PodcastDetail = ({ title, author, image, episodes }) => {
           <h3>Duration</h3>
           {episodes?.list.map((episode, index) => (
             <React.Fragment key={index}>
-              <Link to={`./episode/${episode.id}`}>{episode.title}</Link>
+              <Link to={`./episode/${episode.id}`}>
+                <span className="detail__episodes--title">{episode.title}</span>
+              </Link>
               <p>{new Date(episode.date).toLocaleDateString('es')}</p>
-              <p>
-                {new Date(episode.duration * 1000).toISOString().slice(11, 19)}
-              </p>
+              {/* <p>
+                {new Date(episode?.duration * 1000)
+                  .toISOString()
+                  .slice(11, 19) || episode.duration}
+              </p> */}
+              <p>{episode.duration}</p>
             </React.Fragment>
           ))}
         </div>

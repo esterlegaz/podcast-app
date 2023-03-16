@@ -36,6 +36,7 @@ const Podcast = () => {
   return (
     <Layout>
       <PodcastDetail
+        podcastId={podcastId}
         title={podcastInfo.collectionName}
         author={podcastInfo.artistName}
         image={podcastInfo.artworkUrl600}

@@ -57,13 +57,20 @@ const extractEpisodesData = (episodes) => {
     list: [],
   }
   const items = episodes.querySelectorAll('item')
-  const description = episodes.getElementsByTagName('itunes:summary')
+  const description =
+    episodes.getElementsByTagName('itunes:summary').length > 0
+      ? episodes.getElementsByTagName('itunes:summary')
+      : episodes.getElementsByTagName('description')
   formattedEpisodes.description = description[0].innerHTML
 
   items.forEach((element) => {
     const episode = {
-      id: element.getElementsByTagName('omny:clipId')[0].innerHTML,
-      title: element.getElementsByTagName('itunes:title')[0].innerHTML,
+      id:
+        element.getElementsByTagName('omny:clipId')[0]?.innerHTML ||
+        element.getElementsByTagName('guid')[0].innerHTML,
+      title:
+        element.getElementsByTagName('itunes:title')[0]?.innerHTML ||
+        element.getElementsByTagName('title')[0].innerHTML,
       date: element.getElementsByTagName('pubDate')[0].innerHTML,
       duration: element.getElementsByTagName('itunes:duration')[0].innerHTML,
       description: element.getElementsByTagName('description')[0].innerHTML,
