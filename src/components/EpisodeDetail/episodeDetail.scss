@@ -1,0 +1,23 @@
+@import './../PodcastDetail/podcastDetail.scss';
+@import './../../assets/variables.scss';
+
+.episode {
+  &__container {
+    @extend .detail__episodes;
+    box-shadow: 2px 2px 5px $secondary-color;
+    padding: 1rem;
+
+    p {
+      font-style: italic;
+    }
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__player {
+    margin-top: 1rem;
+  }
+}
