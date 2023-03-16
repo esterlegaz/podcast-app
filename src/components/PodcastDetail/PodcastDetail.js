@@ -44,7 +44,7 @@ const PodcastDetail = ({ podcastId, title, author, image, episodes }) => {
       </div>
     </div>
   ) : (
-    <p>Page is loading...</p>
+    <p className="loading__text">Page is loading...</p>
   )
 }
 
