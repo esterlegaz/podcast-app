@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import './assets/index.scss'
+import './assets/styles/index.scss'
 import Home from './layout/Home/Home'
 import Episode from './layout/Episode/Episode'
 import Podcast from './layout/Podcast/Podcast'
