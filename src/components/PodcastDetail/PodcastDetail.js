@@ -20,7 +20,14 @@ const PodcastDetail = ({ podcastId, title, author, image, episodes }) => {
         </p>
 
         <p className="detail__podcast--title">Description:</p>
-        <p className="detail__podcast--description"> {episodes?.description}</p>
+        <p
+          className="detail__podcast--description"
+          dangerouslySetInnerHTML={{
+            __html: episodes?.description
+              .replace('<![CDATA[', '')
+              .replace(']]>', ''),
+          }}
+        />
       </div>
       <div className="detail__episodes">
         <p className="detail__episodes--number">
@@ -34,10 +41,13 @@ const PodcastDetail = ({ podcastId, title, author, image, episodes }) => {
           {episodes?.list.map((episode, index) => (
             <React.Fragment key={index}>
               <Link to={`./episode/${episode.id}`}>
-                <span className="detail__episodes--title">{episode.title}</span>
+                <span className="detail__episodes--title">
+                  {episode.title.replace('<![CDATA[', '').replace(']]>', '')}
+                </span>
               </Link>
               <p>{new Date(episode.date).toLocaleDateString('es')}</p>
-              {/* <p>
+              {/* Some of them have this info formatted and some of them do not
+              <p>
                 {new Date(episode?.duration * 1000)
                   .toISOString()
                   .slice(11, 19) || episode.duration}
