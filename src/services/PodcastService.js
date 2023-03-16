@@ -41,9 +41,13 @@ export const getPodcastById = async (podcastId) => {
 }
 
 const getPodcastFeed = async (feed) => {
-  const res = await fetch(feed)
-    .then((response) => response.text())
-    .then((str) => new window.DOMParser().parseFromString(str, 'text/xml'))
+  const allowOriginsUrl = `https://api.allorigins.win/get?charset=ISO-8859-1&url=${feed}`
+
+  const res = await fetch(allowOriginsUrl)
+    .then((response) => response.json())
+    .then((str) =>
+      new window.DOMParser().parseFromString(str.contents, 'text/xml')
+    )
     .then((data) => {
       const formattedData = extractEpisodesData(data)
       return formattedData

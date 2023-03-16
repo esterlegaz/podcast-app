@@ -9,6 +9,7 @@ const Podcast = () => {
   const { podcastId } = useParams()
 
   const [podcastInfo, setPodcastInfo] = useState({})
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const localPodcastInfo = JSON.parse(
@@ -21,9 +22,13 @@ const Podcast = () => {
 
     if (infoNeedsToBeFetched) {
       // API is being called twice but it seems to be something related to React.StrictMode and it only happens in development mode: https://stackoverflow.com/questions/72406486/react-fetch-api-being-called-2-times-on-page-load
-      getPodcastById(podcastId).then((data) => {
-        setPodcastInfo(data.podcastInfo)
-      })
+      getPodcastById(podcastId)
+        .then((data) => {
+          setPodcastInfo(data.podcastInfo)
+        })
+        .catch((err) => {
+          setError(true)
+        })
     } else {
       const localPodcastInfo = JSON.parse(
         localStorage.getItem(`podcast_${podcastId}`)
@@ -32,8 +37,12 @@ const Podcast = () => {
       setPodcastInfo(localPodcastInfo.podcastInfo)
     }
   }, [])
-
-  return (
+  return error ? (
+    <p>
+      There's been an error loading this podcast. Please, check console for more
+      information.
+    </p>
+  ) : (
     <Layout>
       <PodcastDetail
         podcastId={podcastId}

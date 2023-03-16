@@ -58,10 +58,7 @@ const PodcastDetail = ({ podcastId, title, author, image, episodes }) => {
       </div>
     </div>
   ) : (
-    <p>
-      There's been an error loading this podcast. Please, check console for more
-      information.
-    </p>
+    <p>Page is loading...</p>
   )
 }
 
