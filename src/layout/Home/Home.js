@@ -44,7 +44,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="podcasts__search">
-        <p>{podcasts.length}</p>
+        <p>{filteredPodcasts.length}</p>
         <SearchInput handleChange={onHandleChange} />
       </div>
       <div className="podcasts__container">
