@@ -19,13 +19,58 @@ export const getPodcastById = async (podcastId) => {
 
   const res = await fetch(allowOriginsUrl)
     .then((response) => response.json())
-    .then((data) => {
-      const enrichedData = {
-        ...JSON.parse(data.contents),
-        lastUpdated: new Date(),
-      }
-      localStorage.setItem(`podcast_${podcastId}`, JSON.stringify(enrichedData))
-      return enrichedData
+    .then(async (data) => {
+      const parsedContent = JSON.parse(data.contents)
+      const podcastFeed = await getPodcastFeed(
+        parsedContent.results[0].feedUrl
+      ).then((episodes) => {
+        const enrichedData = {
+          podcastInfo: parsedContent.results[0],
+          lastUpdated: new Date(),
+        }
+        enrichedData.podcastInfo.episodes = episodes
+        localStorage.setItem(
+          `podcast_${podcastId}`,
+          JSON.stringify(enrichedData)
+        )
+        return enrichedData
+      })
+      return podcastFeed
     })
   return res
+}
+
+const getPodcastFeed = async (feed) => {
+  const res = await fetch(feed)
+    .then((response) => response.text())
+    .then((str) => new window.DOMParser().parseFromString(str, 'text/xml'))
+    .then((data) => {
+      const formattedData = extractEpisodesData(data)
+      return formattedData
+    })
+  return res
+}
+
+const extractEpisodesData = (episodes) => {
+  const formattedEpisodes = {
+    description: '',
+    list: [],
+  }
+  const items = episodes.querySelectorAll('item')
+  const description = episodes.getElementsByTagName('itunes:summary')
+  formattedEpisodes.description = description[0].innerHTML
+
+  items.forEach((element) => {
+    const episode = {
+      id: element.getElementsByTagName('omny:clipId')[0].innerHTML,
+      title: element.getElementsByTagName('itunes:title')[0].innerHTML,
+      date: element.getElementsByTagName('pubDate')[0].innerHTML,
+      duration: element.getElementsByTagName('itunes:duration')[0].innerHTML,
+      description: element.getElementsByTagName('description')[0].innerHTML,
+      audio: element.getElementsByTagName('enclosure')[0].getAttribute('url'),
+    }
+
+    formattedEpisodes.list.push(episode)
+  })
+  return formattedEpisodes
 }

@@ -1,0 +1,50 @@
+@import './../../assets/variables.scss';
+
+p {
+  margin: 0;
+}
+.detail {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2.5rem;
+  }
+
+  &__podcast {
+    color: $text-primary-color;
+    box-shadow: 2px 2px 5px $secondary-color;
+    max-width: 20%;
+    img {
+      width: 150px;
+    }
+  }
+
+  &__episodes {
+    min-width: 70%;
+    &--number {
+      box-shadow: 2px 2px 5px $secondary-color;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 0.75rem;
+    }
+
+    &--list {
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr;
+      // grid-template-rows: 1fr 1fr 1fr;
+      box-shadow: 2px 2px 5px $secondary-color;
+      margin-top: 1rem;
+      padding: 0.25rem 0.75rem;
+
+      & > p,
+      > a {
+        border-bottom: 1px solid $text-primary-color;
+        padding: 0.5rem 0;
+
+        &:nth-last-child(-n + 3) {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
