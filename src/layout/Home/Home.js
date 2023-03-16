@@ -4,13 +4,18 @@ import Layout from '../../components/Layout/Layout'
 import PodcastCard from '../../components/PodcastCard/PodcastCard'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import { getAllPodcasts } from '../../services/PodcastService'
+import { checkDaysDifference } from '../../utils/utils'
 
-const App = () => {
+const Home = () => {
   const [podcasts, setPodcasts] = useState([])
   const [filteredPodcasts, setFilteredPodcasts] = useState([])
 
   useEffect(() => {
-    const infoNeedsToBeFetched = checkDaysDifference()
+    const lastTimeUpdated = localStorage.getItem('podcasts_lastUpdated')
+
+    const infoNeedsToBeFetched = checkDaysDifference(
+      lastTimeUpdated ? lastTimeUpdated : new Date('1/1/2023')
+    )
     if (infoNeedsToBeFetched) {
       getAllPodcasts().then((data) => {
         setPodcasts(data)
@@ -22,17 +27,6 @@ const App = () => {
       setFilteredPodcasts(localPodcastsInfo)
     }
   }, [])
-
-  const checkDaysDifference = () => {
-    const today = new Date()
-    const lastTimeUpdated = localStorage.getItem('podcasts_lastUpdated')
-
-    const diffTime = Math.abs(new Date(lastTimeUpdated) - today)
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-
-    const isUpdateNeeded = diffDays > 1 ? true : false
-    return isUpdateNeeded
-  }
 
   const onHandleChange = (event) => {
     const filteredPodcasts = podcasts.filter(
@@ -57,6 +51,7 @@ const App = () => {
         {filteredPodcasts.map((podcast) => (
           <div key={podcast.id.attributes['im:id']}>
             <PodcastCard
+              id={podcast.id.attributes['im:id']}
               title={podcast['im:name'].label}
               author={podcast['im:artist'].label}
               image={podcast['im:image'][0].label}
@@ -68,4 +63,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Home

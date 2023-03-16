@@ -1,0 +1,88 @@
+@import './../../assets/variables.scss';
+
+p {
+  margin: 0;
+}
+
+.detail {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2.5rem;
+  }
+
+  &__podcast {
+    font-size: 0.75rem;
+    color: $text-primary-color;
+    box-shadow: 2px 2px 5px $secondary-color;
+    max-width: 20%;
+    padding: 1rem;
+    max-height: 600px;
+
+    a {
+      font-style: none;
+      color: $primary-color;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    &--title {
+      font-weight: bold;
+      border-top: 1px solid $secondary-color;
+      padding-top: 0.5rem;
+    }
+
+    &--description {
+      font-style: italic;
+    }
+  }
+
+  &__image {
+    text-align: center;
+    margin: 1rem;
+
+    img {
+      width: 150px;
+      border-radius: 8px;
+    }
+  }
+
+  &__episodes {
+    min-width: 70%;
+    margin: 0 1rem;
+    &--number {
+      box-shadow: 2px 2px 5px $secondary-color;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 0.75rem;
+    }
+
+    &--title {
+      color: $primary-color;
+    }
+
+    &--list {
+      display: grid;
+      grid-template-columns: 4fr 1fr 1fr;
+      box-shadow: 2px 2px 5px $secondary-color;
+      margin-top: 1rem;
+      padding: 0.25rem 0.75rem;
+
+      & > p,
+      > a {
+        color: $text-primary-color;
+        border-bottom: 1px solid $text-primary-color;
+        padding: 0.5rem 0;
+        text-decoration: none;
+
+        &:nth-last-child(-n + 3) {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
