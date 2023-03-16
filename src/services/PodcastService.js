@@ -68,10 +68,11 @@ const extractEpisodesData = (episodes) => {
   formattedEpisodes.description = description[0].innerHTML
 
   items.forEach((element) => {
+    const id =
+      element.getElementsByTagName('omny:clipId')[0]?.innerHTML ||
+      element.getElementsByTagName('guid')[0].innerHTML
     const episode = {
-      id:
-        element.getElementsByTagName('omny:clipId')[0]?.innerHTML ||
-        element.getElementsByTagName('guid')[0].innerHTML,
+      id: id.replace('<![CDATA[', '').replace(']]>', ''),
       title:
         element.getElementsByTagName('itunes:title')[0]?.innerHTML ||
         element.getElementsByTagName('title')[0].innerHTML,

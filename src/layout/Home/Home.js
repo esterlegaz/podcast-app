@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { startLoading, stopLoading } from '../../store/global/globalActions'
 import './Home.scss'
 import Layout from '../../components/Layout/Layout'
 import PodcastCard from '../../components/PodcastCard/PodcastCard'
@@ -7,6 +9,8 @@ import { getAllPodcasts } from '../../services/PodcastService'
 import { checkDaysDifference } from '../../utils/utils'
 
 const Home = () => {
+  const dispatch = useDispatch()
+
   const [podcasts, setPodcasts] = useState([])
   const [filteredPodcasts, setFilteredPodcasts] = useState([])
 
@@ -16,11 +20,17 @@ const Home = () => {
     const infoNeedsToBeFetched = checkDaysDifference(
       lastTimeUpdated ? lastTimeUpdated : new Date('1/1/2023')
     )
+
     if (infoNeedsToBeFetched) {
-      getAllPodcasts().then((data) => {
-        setPodcasts(data)
-        setFilteredPodcasts(data)
-      })
+      dispatch(startLoading())
+      getAllPodcasts()
+        .then((data) => {
+          setPodcasts(data)
+          setFilteredPodcasts(data)
+        })
+        .finally(() => {
+          dispatch(stopLoading())
+        })
     } else {
       const localPodcastsInfo = JSON.parse(localStorage.getItem('podcasts'))
       setPodcasts(localPodcastsInfo)
@@ -44,7 +54,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="podcasts__search">
-        <p>{podcasts.length}</p>
+        <p>{filteredPodcasts.length}</p>
         <SearchInput handleChange={onHandleChange} />
       </div>
       <div className="podcasts__container">

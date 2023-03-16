@@ -1,4 +1,4 @@
-@import './../../assets/variables.scss';
+@import './../../assets/styles/variables.scss';
 
 p {
   margin: 0;
@@ -8,16 +8,15 @@ p {
   &__container {
     display: flex;
     justify-content: space-between;
-    margin: 2.5rem;
+    margin: 0 2.5rem;
   }
 
   &__podcast {
     font-size: 0.75rem;
     color: $text-primary-color;
     box-shadow: 2px 2px 5px $secondary-color;
-    max-width: 20%;
     padding: 1rem;
-    max-height: 600px;
+    max-height: 900px;
 
     a {
       font-style: none;
@@ -85,4 +84,8 @@ p {
       }
     }
   }
+}
+
+.loading__text {
+  text-align: center;
 }
