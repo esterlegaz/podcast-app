@@ -33,8 +33,12 @@ const EpisodeDetail = ({
             }}
           />
         )}
-        <audio className="episode__player" controls>
-          <source src={episodeInfo.audio} />
+        <audio
+          src={episodeInfo.audio}
+          className="episode__player"
+          controls
+          type="audio"
+        >
           Your browser does not support the audio tag.
         </audio>
       </div>
