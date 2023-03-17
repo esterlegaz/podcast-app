@@ -21,7 +21,9 @@ const EpisodeDetail = ({
         episodes={episodes}
       />
       <div className="episode__container">
-        <h3 className="episode__title">{episodeInfo.title}</h3>
+        <h3 className="episode__title">
+          {episodeInfo?.title?.replace('<![CDATA[', '').replace(']]>', '')}
+        </h3>
         {episodeInfo.description && (
           <p
             dangerouslySetInnerHTML={{
