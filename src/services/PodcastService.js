@@ -45,10 +45,17 @@ const getPodcastFeed = async (feed) => {
 
   const res = await fetch(allowOriginsUrl)
     .then((response) => response.json())
-    .then((str) =>
-      new window.DOMParser().parseFromString(str.contents, 'text/xml')
-    )
+    .then((str) => {
+      const parsedData = new window.DOMParser().parseFromString(
+        str.contents,
+        'text/xml'
+      )
+      return parsedData
+    })
     .then((data) => {
+      if (!data) {
+        throw new Error('Data could not be retrieved from the API')
+      }
       const formattedData = extractEpisodesData(data)
       return formattedData
     })
