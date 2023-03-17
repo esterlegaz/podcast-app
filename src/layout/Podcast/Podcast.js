@@ -6,6 +6,7 @@ import PodcastDetail from '../../components/PodcastDetail/PodcastDetail'
 import { getPodcastById } from '../../services/PodcastService'
 import { startLoading, stopLoading } from '../../store/global/globalActions'
 import { checkDaysDifference } from '../../utils/utils'
+import './podcast.scss'
 
 const Podcast = () => {
   const dispatch = useDispatch()
@@ -31,6 +32,7 @@ const Podcast = () => {
           setPodcastInfo(data.podcastInfo)
         })
         .catch((err) => {
+          debugger
           setError(true)
         })
         .finally(() => {
