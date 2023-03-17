@@ -45,10 +45,12 @@ const Podcast = () => {
     }
   }, [])
   return error ? (
-    <p>
-      There's been an error loading this podcast. Please, check console for more
-      information.
-    </p>
+    <Layout>
+      <p className="error__message">
+        There's been an error loading this podcast. Please, check console for
+        more information.
+      </p>
+    </Layout>
   ) : (
     <Layout>
       <PodcastDetail
